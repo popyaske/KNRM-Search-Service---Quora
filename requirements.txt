@@ -20,6 +20,7 @@ nltk==3.8.1
 torch==2.2.0
 
 # Зависимости
+requests==2.31.0
 pandas==3.0.1
 setuptools>=68.0.0
 wheel>=0.41.0
