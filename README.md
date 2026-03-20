@@ -91,8 +91,8 @@ curl http://localhost:11000/ping
 # Ожидаемый ответ:
 # {"status":"ok","message":"Service ready"}
 
-# Или через браузер
-open http://localhost:11000/ping
+# Создание тестового индекса и поиск похожих вопросов
+python test\test.py
 ```
 
 ## 📋 Структура проекта
