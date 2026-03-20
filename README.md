@@ -63,10 +63,10 @@ del glove.6B.zip
 
 ```bash
 # Запуск через Uvicorn (рекомендуется)
-python -m uvicorn main:app --host 127.0.0.1 --port 11000 --reload
+python -m uvicorn src.main:app --host 127.0.0.1 --port 11000 --reload
 
-# Или напрямую
-python main.py
+# Запустите как модуль
+python -m src.main
 ```
 
 ### Запуск через Docker
