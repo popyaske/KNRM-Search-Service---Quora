@@ -85,25 +85,27 @@ open http://localhost:11000/ping
 
 ```
 knrm-search-service/
-├── requirements.txt # Зависимости
-├── Dockerfile # Конфигурация Docker
-├── src/
-│ ├── init.py
-│ ├── main.py # Основной файл сервиса (FastAPI)
-│ └── config/
-│   └── project_config.py # Конфигурация проекта
-├── data/
-│ ├── glove/
-│ │ └── glove_dict.pkl
-│ ├── vocab/
-│ │ └── vocab.json
-│ ├── models/
-│ │ ├── emb_knrm.pkl
-│ │ └── mlp_weights.pkl
-│ └── QQP/
-│   ├── dev.tsv
-│   └── train.tsv
-└── README.md
+├── 📄 requirements.txt # Зависимости
+├── 🐳 Dockerfile # Конфигурация Docker
+├── 📖 README.md # Документация
+│
+├── 📂 src/ # Исходный код
+│ ├── 🚀 main.py # Основной файл сервиса (FastAPI)
+│ ├── 🔧 init.py
+│ └── 📂 config/
+│ └── ⚙️ project_config.py # Конфигурация проекта
+│
+└── 📂 data/ # Данные для модели
+├── 📂 glove/
+│ └── 🧤 glove_dict.pkl # Предобученные GloVe эмбеддинги
+├── 📂 vocab/
+│ └── 📚 vocab.json # Словарь токенов
+├── 📂 models/
+│ ├── 🧠 emb_knrm.pkl # Обученные KNRM эмбеддинги
+│ └── ⚖️ mlp_weights.pkl # Веса MLP слоев
+└── 📂 QQP/
+├── 📊 dev.tsv # Валидационные данные
+└── 📈 train.tsv # Обучающие данные
 ```
 
 ## 🔧 API Эндпоинты
