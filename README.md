@@ -44,12 +44,103 @@ venv\Scripts\activate  # Windows
 # Установка зависимостей
 pip install -r requirements.txt
 
+```markdown
 ### Запуск сервиса
 
+```bash
 # Запуск через Uvicorn (рекомендуется)
 python -m uvicorn main:app --host 127.0.0.1 --port 11000 --reload
 
 # Или напрямую
 python main.py
 
+```markdown
 ### Запуск через Docker
+
+```bash
+# Сборка образа
+docker build -t knrm-search .
+
+# Запуск контейнера
+docker run -d --name knrm-search -p 11000:11000 knrm-search
+
+# Просмотр логов
+docker logs -f knrm-search
+
+```markdown
+### Проверка работы
+
+```bash
+# Проверка статуса
+curl http://localhost:11000/ping
+
+# Ожидаемый ответ:
+# {"status":"ok","message":"Service ready"}
+
+# Или через браузер
+open http://localhost:11000/ping
+
+```markdown
+### 📋 Структура проекта
+
+knrm-search-service/
+├── main.py                   # Основной файл сервиса (FastAPI)
+├── knrm_mlp.bin             # Веса MLP части модели
+├── requirements.txt          # Зависимости
+├── Dockerfile               # Конфигурация Docker
+├── src/
+│   ├── __init__.py
+│   ├── config/
+│   │   └── project_config.py  # Конфигурация проекта
+│   ├── models/
+│   │   ├── knrm.py           # Реализация KNRM
+│   │   ├── glove_vectorizer.py
+│   │   └── searcher.py
+│   └── utils/
+│       └── preprocessing.py
+└── README.md
+
+### 🔧 API Эндпоинты
+
+Метод	Эндпоинт	Описание
+GET	/ping	Проверка готовности сервиса
+POST	/update_index	Обновление FAISS индекса
+POST	/query	Поиск похожих вопросов
+
+# Примеры запросов
+
+```bash
+1. Проверка статуса
+bash
+curl http://localhost:11000/ping
+2. Обновление индекса
+bash
+curl -X POST http://localhost:11000/update_index \
+  -H "Content-Type: application/json" \
+  -d '{
+    "documents": {
+      "1": "What is machine learning?",
+      "2": "How to learn Python?",
+      "3": "Best deep learning practices"
+    }
+  }'
+3. Поиск похожих вопросов
+bash
+curl -X POST http://localhost:11000/query \
+  -H "Content-Type: application/json" \
+  -d '{
+    "queries": [
+      "What is ML?",
+      "How to code in Python?"
+    ]
+  }'
+
+```markdown
+### 📝 Примечания
+Сервис инициализируется до 120 секунд. /ping вернет status: "ok" только после полной загрузки.
+
+Индекс строится до 200 секунд через эндпоинт /update_index
+
+Поиск возвращает до 10 наиболее релевантных вопросов для каждого запроса
+
+Не-английские запросы фильтруются и возвращают пустой список предложений
