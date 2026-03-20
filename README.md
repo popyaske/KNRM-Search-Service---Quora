@@ -53,8 +53,8 @@ python -m uvicorn main:app --host 127.0.0.1 --port 11000 --reload
 
 # Или напрямую
 python main.py
+```
 
-```markdown
 ### Запуск через Docker
 
 ```bash
@@ -66,8 +66,8 @@ docker run -d --name knrm-search -p 11000:11000 knrm-search
 
 # Просмотр логов
 docker logs -f knrm-search
+```
 
-```markdown
 ### Проверка работы
 
 ```bash
@@ -79,8 +79,8 @@ curl http://localhost:11000/ping
 
 # Или через браузер
 open http://localhost:11000/ping
+```
 
-```markdown
 ### 📋 Структура проекта
 
 knrm-search-service/
@@ -102,19 +102,22 @@ knrm-search-service/
 
 ### 🔧 API Эндпоинты
 
-Метод	Эндпоинт	Описание
-GET	/ping	Проверка готовности сервиса
-POST	/update_index	Обновление FAISS индекса
-POST	/query	Поиск похожих вопросов
+| Метод | Эндпоинт | Описание |
+|-------|----------|----------|
+| GET | `/ping` | Проверка готовности сервиса |
+| POST | `/update_index` | Обновление FAISS индекса |
+| POST | `/query` | Поиск похожих вопросов |
 
-# Примеры запросов
+### Примеры запросов
 
+
+# 1. Проверка статуса
 ```bash
-1. Проверка статуса
-bash
 curl http://localhost:11000/ping
-2. Обновление индекса
-bash
+```
+
+# 2. Обновление индекса
+```bash
 curl -X POST http://localhost:11000/update_index \
   -H "Content-Type: application/json" \
   -d '{
@@ -124,8 +127,10 @@ curl -X POST http://localhost:11000/update_index \
       "3": "Best deep learning practices"
     }
   }'
-3. Поиск похожих вопросов
-bash
+```
+
+# 3. Поиск похожих вопросов
+```bash
 curl -X POST http://localhost:11000/query \
   -H "Content-Type: application/json" \
   -d '{
@@ -134,13 +139,13 @@ curl -X POST http://localhost:11000/query \
       "How to code in Python?"
     ]
   }'
+```
 
-```markdown
 ### 📝 Примечания
-Сервис инициализируется до 120 секунд. /ping вернет status: "ok" только после полной загрузки.
+- Сервис инициализируется до 120 секунд. /ping вернет status: "ok" только после полной загрузки.
 
-Индекс строится до 200 секунд через эндпоинт /update_index
+- Индекс строится до 200 секунд через эндпоинт /update_index
 
-Поиск возвращает до 10 наиболее релевантных вопросов для каждого запроса
+- Поиск возвращает до 10 наиболее релевантных вопросов для каждого запроса
 
-Не-английские запросы фильтруются и возвращают пустой список предложений
+- Не-английские запросы фильтруются и возвращают пустой список предложений
