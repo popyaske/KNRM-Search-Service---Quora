@@ -95,7 +95,6 @@ knrm-search-service/
 │ └── 📂 config/
 │ └── ⚙️ project_config.py # Конфигурация проекта
 │
-└── 📂 data/ # Данные для модели
 ├── 📂 glove/
 │ └── 🧤 glove_dict.pkl # Предобученные GloVe эмбеддинги
 ├── 📂 vocab/
